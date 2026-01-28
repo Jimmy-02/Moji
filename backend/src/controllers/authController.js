@@ -108,7 +108,7 @@ export const signOut = async (req, res) => {
   }
 };
 
-export const refreshToken = async (res, req) => {
+export const refreshToken = async (req, res) => {
   try {
     const token = req.cookies?.refreshToken;
     if(!token){
