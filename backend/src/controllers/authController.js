@@ -82,8 +82,25 @@ export const signIn = async (req, res) => {
     return res.status(200).json({message: `User ${user.displayName} is logged in!`, accessToken})
 
   } catch (error) {
-    console.log("error when call signIp", error);
+    console.log("error when call signIn", error);
     return res.status(500).json({ message: "System error" });
   }
 
 };
+
+export const signOut = async (req, res) => {
+  try {
+    const token = req.cookies?.refreshToken;
+
+    if(token){
+      await Session.deleteOne({refreshToken: token});
+
+      res.clearCookie("refreshToken");
+    }
+
+    return res.sendStatus(204);
+  } catch (error) {
+    console.log("error when call signOut", error);
+    return res.status(500).json({ message: "System error" });
+  }
+}
