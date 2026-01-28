@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 import Session from "../models/Session.js";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -43,26 +43,29 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
   try {
-    
-    const {username, password} = req.body;
+    const { username, password } = req.body;
 
-    if(!username || !password){
-      return res.status(400).json({message: "Missing username or password"});
+    if (!username || !password) {
+      return res.status(400).json({ message: "Missing username or password" });
     }
 
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
 
-    if(!user){
-      return res.status(401).json({message: "Wrong username or password"});
+    if (!user) {
+      return res.status(401).json({ message: "Wrong username or password" });
     }
 
     const passwordCorrect = await bcrypt.compare(password, user.hashedPassword);
 
-    if(!passwordCorrect){
-      return res.status(401).json({message: "Wrong username or password"});
+    if (!passwordCorrect) {
+      return res.status(401).json({ message: "Wrong username or password" });
     }
 
-    const accessToken = jwt.sign({userId: user._id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_TTL});
+    const accessToken = jwt.sign(
+      { userId: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: ACCESS_TOKEN_TTL },
+    );
 
     const refreshToken = crypto.randomBytes(64).toString("hex");
 
@@ -72,28 +75,28 @@ export const signIn = async (req, res) => {
       expiresAt: new Date(Date.now() + REFRESH_TOKEN_TTL),
     });
 
-    res.cookie('refreshToken', refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: "none",
       maxAge: REFRESH_TOKEN_TTL,
     });
 
-    return res.status(200).json({message: `User ${user.displayName} is logged in!`, accessToken})
-
+    return res
+      .status(200)
+      .json({ message: `User ${user.displayName} is logged in!`, accessToken });
   } catch (error) {
     console.log("error when call signIn", error);
     return res.status(500).json({ message: "System error" });
   }
-
 };
 
 export const signOut = async (req, res) => {
   try {
     const token = req.cookies?.refreshToken;
 
-    if(token){
-      await Session.deleteOne({refreshToken: token});
+    if (token) {
+      await Session.deleteOne({ refreshToken: token });
 
       res.clearCookie("refreshToken");
     }
@@ -103,4 +106,30 @@ export const signOut = async (req, res) => {
     console.log("error when call signOut", error);
     return res.status(500).json({ message: "System error" });
   }
-}
+};
+
+export const refreshToken = async (res, req) => {
+  try {
+    const token = req.cookies?.refreshToken;
+    if(!token){
+      return res.status(401).json({message: "Token not exist"});
+    }
+    const session = await Session.findOne({refreshToken: token});
+
+    if (!session) {
+      return res.status(403).json({message: "Invalid or outdated token"})
+    }
+
+    if(session.expiresAt < new Date()){
+      return res.status(403).json({message: "Outdated token"})
+    }
+
+    const accessToken = jwt.sign({
+      userId: session.userId
+    }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_TTL});
+    return res.status(200).json({accessToken});
+  } catch (error) {
+    console.log("error when call refreshToken", error);
+    return res.status(500).json({ message: "System error" });
+  }
+};
