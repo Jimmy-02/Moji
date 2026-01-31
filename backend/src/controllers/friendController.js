@@ -129,7 +129,7 @@ export const getAllFriends = async(req, res)=>{
     }
 }
 
-export const getFriendRequest = async(req, res)=>{
+export const getFriendRequests = async(req, res)=>{
     try {
         
     } catch (error) {
