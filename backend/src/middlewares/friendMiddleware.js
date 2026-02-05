@@ -39,7 +39,7 @@ export const checkFriendship = async (req, res, next) => {
           return res
             .status(403)
             .json({
-              message: "You can add your friend to your group.",
+              message: "You can only add your friend to your group.",
               notFriends,
             });
         }
