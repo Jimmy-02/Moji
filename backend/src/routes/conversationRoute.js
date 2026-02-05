@@ -3,7 +3,6 @@ import {
   createConversation,
   getConversations,
   getMessages,
-  markAsSeen,
 } from "../controllers/conversationController.js";
 import { checkFriendship } from "../middlewares/friendMiddleware.js";
 
