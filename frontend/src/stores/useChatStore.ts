@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { ChatState } from "@/types/store";
+import { chatService } from "@/services/chatService";
 
 export const useChatStore = create<ChatState>()(
   persist(
@@ -19,6 +20,17 @@ export const useChatStore = create<ChatState>()(
           loading: false,
         });
       },
+      fetchConversations: async() => {
+        try {
+          set({ loading: true });
+          const { conversations } = await chatService.fetchConversations();
+
+          set({ conversations, loading: false });
+        } catch (error) {
+          console.error("Error when fetch Conversations:", error);
+          set({ loading: false });
+        }
+      }
     }),
     {
       name: "chat-storage",

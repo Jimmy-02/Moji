@@ -43,6 +43,7 @@ export const useAuthStore = create<AuthState>()(
             const {accessToken} = await authService.signIn(username, password);
             get().setAccessToken(accessToken);
             await get().fetchMe();
+            useChatStore.getState().fetchConversations();
 
             toast.success('Chào mừng bạn quay trở lại');
         } catch (error) {
