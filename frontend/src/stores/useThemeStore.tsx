@@ -9,6 +9,7 @@ export const useThemeStore = create<ThemeState>()(
 
             toggleTheme: () =>{
                 const newValue = !get().isDark;
+                set({ isDark: newValue });
 
                 if (newValue) {
                     document.documentElement.classList.add("dark");
