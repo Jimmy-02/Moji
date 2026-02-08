@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { ChatState } from "@/types/store";
 
 export const useChatStore = create<ChatState>()(
   persist(
