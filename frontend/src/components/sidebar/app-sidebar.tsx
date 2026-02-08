@@ -3,6 +3,10 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -10,6 +14,11 @@ import {
 } from "@/components/ui/sidebar"
 import { Moon, Sun } from "lucide-react"
 import { Switch } from "../ui/switch";
+import CreateNewChat from "../chat/CreateNewChat";
+import NewGroupChatModal from "../chat/NewGroupChatModal";
+import GroupChatList from "../chat/GroupChatList";
+import AddFriendModal from "../chat/AddFriendModal";
+import DirectMessageList from "../chat/DirectMessageList";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
@@ -43,7 +52,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       {/* Content */}
-      <SidebarContent></SidebarContent>
+      <SidebarContent>
+        {/* New chat */}
+        <SidebarGroup>
+          <CreateNewChat />
+        </SidebarGroup>
+        {/* Group Chat */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="uppercase">Nhóm Chat</SidebarGroupLabel>
+
+          <SidebarGroupAction title="Tạo Nhóm" className="cursor-pointer">
+            <NewGroupChatModal />
+          </SidebarGroupAction>
+
+          <SidebarGroupContent>
+            <GroupChatList />
+          </SidebarGroupContent>
+          
+        </SidebarGroup>
+        {/* Direct Message */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="uppercase">Bạn Bè</SidebarGroupLabel>
+          <SidebarGroupAction title="Kết Bạn" className="cursor-pointer">
+            <AddFriendModal />
+          </SidebarGroupAction>
+
+          <SidebarGroupContent>
+            <DirectMessageList />
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
       {/* Footer */}
       <SidebarFooter>{/* <NavUser user={data.user} /> */}</SidebarFooter>
     </Sidebar>
