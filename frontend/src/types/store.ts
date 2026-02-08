@@ -1,26 +1,29 @@
 import type { User } from "./user";
 
 export interface AuthState {
-    accessToken: string | null;
-    user: User | null;
-    loading: boolean;
+  accessToken: string | null;
+  user: User | null;
+  loading: boolean;
 
-    setAccessToken: (accessToken: string) => void;
+  setAccessToken: (accessToken: string) => void;
 
-    clearState: () => void;
+  clearState: () => void;
 
-    signUp: (
+  signUp: (
     username: string,
     password: string,
     email: string,
     firstName: string,
     lastName: string,
-    ) => Promise<void>;
-    signIn: (
-    username: string,
-    password: string,
-    ) => Promise<void>;
-    signOut: () => Promise<void>;
-    fetchMe: () => Promise<void>;
-    refresh: () => Promise<void>;
+  ) => Promise<void>;
+  signIn: (username: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  fetchMe: () => Promise<void>;
+  refresh: () => Promise<void>;
+}
+
+export interface ThemeState {
+  isDark: boolean;
+  toggleTheme: () => void;
+  setTheme: (dark: boolean) => void;
 }
