@@ -1,5 +1,6 @@
 import { Ellipsis } from "lucide-react";
 import UserAvatar from "./UserAvatar";
+import type { Participant } from "@/types/chat";
 
 
 interface GroupChatAvatarProps {
