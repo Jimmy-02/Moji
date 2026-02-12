@@ -22,7 +22,7 @@ export const useChatStore = create<ChatState>()(
           messageLoading: false,
         });
       },
-      fetchConversations: async() => {
+      fetchConversations: async () => {
         try {
           set({ convoLoading: true });
           const { conversations } = await chatService.fetchConversations();
@@ -31,7 +31,7 @@ export const useChatStore = create<ChatState>()(
         } catch (error) {
           console.error("Error when fetch Conversations:", error);
           set({ convoLoading: false });
-        };
+        }
       },
       fetchMessages: async (conversationId) => {
         const { activeConversationId, messages } = get();
@@ -47,7 +47,7 @@ export const useChatStore = create<ChatState>()(
         if (nextCursor === null) return;
 
         set({ messageLoading: true });
-        
+
         try {
           const { messages: fetched, cursor } = await chatService.fetchMessages(
             convoId,
@@ -58,9 +58,11 @@ export const useChatStore = create<ChatState>()(
             ...m,
             isOwn: m.senderId === user?._id,
           }));
+
           set((state) => {
             const prev = state.messages[convoId]?.items ?? [];
-            const merged = prev.length > 0 ? [...processed, ...prev] : processed;
+            const merged =
+              prev.length > 0 ? [...processed, ...prev] : processed;
 
             return {
               messages: {
@@ -74,11 +76,11 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
-          console.error("Error when fetchMessages:", error);
-        } finally{
+          console.error("Lỗi xảy ra khi fetchMessages:", error);
+        } finally {
           set({ messageLoading: false });
         }
-      }
+      },
     }),
     {
       name: "chat-storage",

@@ -1,10 +1,11 @@
 import { useChatStore } from "@/stores/useChatStore";
 import ChatWelcomeScreen from "./ChatWelcomeScreen";
-import ChatWindowSkeleton from "./ChatWindowSkeleton";
 import { SidebarInset } from "../ui/sidebar";
 import ChatWindowHeader from "./ChatWindowHeader";
 import ChatWindowBody from "./ChatWindowBody";
 import MessageInput from "./MessageInput";
+import ChatWindowSkeleton from "./ChatWindowSkeleton";
+
 
 const ChatWindowLayout = () => {
   const {
@@ -13,7 +14,8 @@ const ChatWindowLayout = () => {
     messageLoading: loading,
   } = useChatStore();
 
-  const selectedConvo = conversations.find((c) => c._id === activeConversationId) ?? null;
+  const selectedConvo =
+    conversations.find((c) => c._id === activeConversationId) ?? null;
 
   if (!selectedConvo) {
     return <ChatWelcomeScreen />;
@@ -34,9 +36,10 @@ const ChatWindowLayout = () => {
       </div>
 
       {/* Footer */}
-      <MessageInput/>
+      <MessageInput />
     </SidebarInset>
-  );
-}
 
-export default ChatWindowLayout
+  );
+};
+
+export default ChatWindowLayout;
