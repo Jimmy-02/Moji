@@ -81,6 +81,20 @@ export const useChatStore = create<ChatState>()(
           set({ messageLoading: false });
         }
       },
+      sendDirectMessage: async()=>{
+        try {
+          
+        } catch (error) {
+          
+        }
+      },
+      sendGroupMessage: async() =>{
+        try {
+          
+        } catch (error) {
+          
+        }
+      }
     }),
     {
       name: "chat-storage",
