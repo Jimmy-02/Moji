@@ -42,7 +42,8 @@ export const useChatStore = create<ChatState>()(
         if (!convoId) return;
 
         const current = messages?.[convoId];
-        const nextCursor = current?.nextCursor === undefined ? "" : current?.nextCursor;
+        const nextCursor =
+          current?.nextCursor === undefined ? "" : current?.nextCursor;
 
         if (nextCursor === null) return;
 
@@ -81,20 +82,29 @@ export const useChatStore = create<ChatState>()(
           set({ messageLoading: false });
         }
       },
-      sendDirectMessage: async()=>{
+      sendDirectMessage: async (recipientId, content, imgUrl) => {
         try {
-          
+          const { activeConversationId } = get();
+          await chatService.sendDirectMessage(
+            recipientId,
+            content,
+            imgUrl,
+            activeConversationId || undefined,
+          );
+          set((state) => ({
+            conversations: state.conversations.map((c) =>
+              c._id === activeConversationId ? { ...c, seenBy: [] } : c,
+            ),
+          }));
         } catch (error) {
-          
+          console.error("Error when sending direct message", error);
         }
       },
-      sendGroupMessage: async() =>{
+      sendGroupMessage: async () => {
         try {
           
-        } catch (error) {
-          
-        }
-      }
+        } catch (error) {}
+      },
     }),
     {
       name: "chat-storage",
