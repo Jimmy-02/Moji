@@ -33,7 +33,12 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
       setValue("");
     }
   }
-  
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
   return (
     <div className="flex items-center gap-2 p-3 min-h-[56px] bg-background">
       <Button
@@ -45,6 +50,7 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
       </Button>
       <div className="flex-1 relative">
         <Input
+          onKeyDown={handleKeyPress}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Soạn tin nhắn..."
