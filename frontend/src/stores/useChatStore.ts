@@ -100,10 +100,17 @@ export const useChatStore = create<ChatState>()(
           console.error("Error when sending direct message", error);
         }
       },
-      sendGroupMessage: async () => {
+      sendGroupMessage: async (conversationId, content, imgUrl) => {
         try {
-          
-        } catch (error) {}
+          await chatService.sendGroupMessage(conversationId, content, imgUrl);
+          set((state) => ({
+            conversations: state.conversations.map((c) =>
+              c._id === get().activeConversationId ? { ...c, seenBy: [] } : c,
+            ),
+          }));
+        } catch (error) {
+          console.error("Error when sending group message", error);
+        }
       },
     }),
     {
