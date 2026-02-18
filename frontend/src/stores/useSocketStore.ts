@@ -26,6 +26,10 @@ export const useSocketStore = create<SocketState>((set, get) => ({
         });
     },
     disconnectSocket: () => {
-        
+        const socket = get().socket;
+        if (socket) {
+            socket.disconnect();
+            set({socket: null});
+        }
     },
 }))
