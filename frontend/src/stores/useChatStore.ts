@@ -112,10 +112,10 @@ export const useChatStore = create<ChatState>()(
           console.error("Error when sending group message", error);
         }
       },
-      addMessage: async (message) =>{
+      addMessage: async (message) => {
         try {
-          const {user} = useAuthStore.getState();
-          const {fetchMessages} = get();
+          const { user } = useAuthStore.getState();
+          const { fetchMessages } = get();
           message.isOwn = message.senderId === user?._id;
           const convoId = message.conversationId;
 
@@ -144,7 +144,14 @@ export const useChatStore = create<ChatState>()(
         } catch (error) {
           console.error("Error when add message:", error);
         }
-      }
+      },
+      updateConversation: (conversation) => {
+        set((state) => ({
+          conversations: state.conversations.map((c) =>
+            c._id === conversation._id ? { ...c, ...conversation } : c,
+          ),
+        }));
+      },
     }),
     {
       name: "chat-storage",
