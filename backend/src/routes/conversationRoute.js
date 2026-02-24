@@ -11,5 +11,6 @@ const router = express.Router();
 router.post("/", checkFriendship, createConversation);
 router.get("/", getConversations);
 router.get("/:conversationId/messages", getMessages);
+router.patch("/:conversationId/seen", markAsSeen);
 
 export default router;
