@@ -5,6 +5,7 @@ import ChatWindowHeader from "./ChatWindowHeader";
 import ChatWindowBody from "./ChatWindowBody";
 import MessageInput from "./MessageInput";
 import ChatWindowSkeleton from "./ChatWindowSkeleton";
+import { useEffect } from "react";
 
 
 const ChatWindowLayout = () => {
