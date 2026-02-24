@@ -169,3 +169,12 @@ export const getUserConversationsForSocketIO = async (userId) => {
     return [];
   }
 }
+
+export const markAsSeen = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    console.error("Error when mark as seen", error);
+    return res.status(500).json({ message: "System error" });
+  }
+}
