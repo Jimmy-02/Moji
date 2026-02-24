@@ -152,6 +152,13 @@ export const useChatStore = create<ChatState>()(
           ),
         }));
       },
+      markAsSeen: async () =>{
+        try {
+          
+        } catch (error) {
+          console.error("Error when calling markAsSeen in store", error);
+        }
+      }
     }),
     {
       name: "chat-storage",
