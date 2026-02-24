@@ -54,6 +54,14 @@ export const useSocketStore = create<SocketState>((set, get) => ({
             }
             useChatStore.getState().updateConversation(updatedConversation);
         })
+
+        socket.on("read-message", ({ conversation, lastMessage }) => {
+            const updated = {
+                ...conversation,
+                lastMessage,
+            };
+            useChatStore.getState().updateConversation(updated);
+        })
     },
     disconnectSocket: () => {
         const socket = get().socket;
