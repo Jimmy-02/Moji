@@ -13,6 +13,7 @@ const ChatWindowBody = () => {
     const [lastMessageStatus, setLastMessageStatus] = useState<"delivered" | "seen">("delivered");
 
     const messages = allMessages[activeConversationId!]?.items ?? [];
+    const hasMore = allMessages[activeConversationId!]?.hasMore ?? false;
     const selectedConvo = conversations.find((c) => c._id === activeConversationId);
     
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,20 +49,28 @@ const ChatWindowBody = () => {
     }
   return (
     <div className="p-4 bg-primary-foreground h-full flex flex-col overflow-hidden">
-      <div className="flex flex-col overflow-y-auto overflow-x-hidden beautiful-scrollbar">
-        <InfiniteScroll>
+      <div
+        id="scrollableDiv"
+        className="flex flex-col overflow-y-auto overflow-x-hidden beautiful-scrollbar"
+      >
+        <InfiniteScroll
+          dataLength={messages.length}
+          next={() => console.log("Loading more....")}
+          hasMore={hasMore}
+          scrollableTarget="scrollableDiv"
+          loader={<p>Loading...</p>}
+        >
           {messages.map((message, index) => (
-          <MessageItem
-            key={message._id ?? index}
-            message={message}
-            index={index}
-            messages={messages}
-            selectedConvo={selectedConvo}
-            lastMessageStatus={lastMessageStatus}
-          />
-        ))}
+            <MessageItem
+              key={message._id ?? index}
+              message={message}
+              index={index}
+              messages={messages}
+              selectedConvo={selectedConvo}
+              lastMessageStatus={lastMessageStatus}
+            />
+          ))}
         </InfiniteScroll>
-        
 
         <div ref={messagesEndRef}></div>
       </div>
