@@ -26,6 +26,14 @@ const ChatWindowBody = () => {
 
       setLastMessageStatus(seenBy.length > 0 ? "seen" : "delivered");
     }, [selectedConvo]);
+    
+    useLayoutEffect(() => {
+      if (!messagesEndRef.current) return;
+
+      messagesEndRef.current?.scrollIntoView({
+        block: "end",
+      });
+    }, [activeConversationId]);
 
     if (!selectedConvo) {
       return <ChatWelcomeScreen />;
