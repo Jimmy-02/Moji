@@ -19,23 +19,36 @@ const MessageItem = ({
   selectedConvo,
   lastMessageStatus,
 }: MessageItemProps) => {
-    const prev = index + 1 < messages.length ? messages[index + 1] : undefined;
+  const prev = index + 1 < messages.length ? messages[index + 1] : undefined;
 
-    const isGroupBreak = 
-    index === 0||
-    message.senderId !== prev?.senderId ||
-    new Date(message.createdAt).getTime() - new Date(prev?.createdAt || 0).getTime() > 300000;
+  const isShowTime =
+    index === 0 ||
+    new Date(message.createdAt).getTime() -
+      new Date(prev?.createdAt || 0).getTime() >
+      300000; // 5 phút
 
-    const participant = selectedConvo.participants.find(
-      (p: Participant) => p._id.toString() === message.senderId.toString(),
-    );
-    return (
+  const isGroupBreak = isShowTime || message.senderId !== prev?.senderId;
+
+  const participant = selectedConvo.participants.find(
+    (p: Participant) => p._id.toString() === message.senderId.toString(),
+  );
+
+  return (
+    <>
+      {/* time */}
+      {isShowTime && (
+        <span className="flex justify-center text-xs text-muted-foreground px-1">
+          {formatMessageTime(new Date(message.createdAt))}
+        </span>
+      )}
+
       <div
         className={cn(
           "flex gap-2 message-bounce mt-1",
           message.isOwn ? "justify-end" : "justify-start",
         )}
       >
+        {/* avatar */}
         {!message.isOwn && (
           <div className="w-8">
             {isGroupBreak && (
@@ -48,6 +61,7 @@ const MessageItem = ({
           </div>
         )}
 
+        {/* tin nhắn */}
         <div
           className={cn(
             "max-w-xs lg:max-w-md space-y-1 flex flex-col",
@@ -66,11 +80,6 @@ const MessageItem = ({
               {message.content}
             </p>
           </Card>
-          {isGroupBreak && (
-            <span className="text-xs text-muted-foreground px-1">
-              {formatMessageTime(new Date(message.createdAt))}
-            </span>
-          )}
 
           {/* seen/ delivered */}
           {message.isOwn && message._id === selectedConvo.lastMessage?._id && (
@@ -88,7 +97,8 @@ const MessageItem = ({
           )}
         </div>
       </div>
-    );
-}
+    </>
+  );
+};
 
-export default MessageItem
+export default MessageItem;
