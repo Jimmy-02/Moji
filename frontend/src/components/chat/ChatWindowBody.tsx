@@ -36,6 +36,18 @@ const ChatWindowBody = () => {
       });
     }, [activeConversationId]);
 
+    const fetchMoreMessages = async () => {
+      if (!activeConversationId) {
+        return;
+      }
+
+      try {
+        await fetchMessages(activeConversationId);
+      } catch (error) {
+        console.error("Error when fetching more messages", error);
+      }
+    };
+
     if (!selectedConvo) {
       return <ChatWelcomeScreen />;
     }
@@ -55,7 +67,7 @@ const ChatWindowBody = () => {
       >
         <InfiniteScroll
           dataLength={messages.length}
-          next={() => console.log("Loading more....")}
+          next={fetchMoreMessages}
           hasMore={hasMore}
           scrollableTarget="scrollableDiv"
           loader={<p>Loading...</p>}
