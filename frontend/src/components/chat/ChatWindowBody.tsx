@@ -1,7 +1,7 @@
 import { useChatStore } from "@/stores/useChatStore";
 import ChatWelcomeScreen from "./ChatWelcomeScreen";
 import MessageItem from "./MessageItem";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const ChatWindowBody = () => {
   const {
@@ -15,6 +15,7 @@ const ChatWindowBody = () => {
     const messages = allMessages[activeConversationId!]?.items ?? [];
     const selectedConvo = conversations.find((c) => c._id === activeConversationId);
     
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
       const lastMessage = selectedConvo?.lastMessage;
       if (!lastMessage) {
@@ -50,6 +51,8 @@ const ChatWindowBody = () => {
             lastMessageStatus={lastMessageStatus}
           />
         ))}
+
+        <div ref={messagesEndRef}></div>
       </div>
     </div>
   );
