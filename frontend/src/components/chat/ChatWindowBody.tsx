@@ -2,7 +2,7 @@ import { useChatStore } from "@/stores/useChatStore";
 import ChatWelcomeScreen from "./ChatWelcomeScreen";
 import MessageItem from "./MessageItem";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-
+import InfiniteScroll from "react-infinite-scroll-component"
 const ChatWindowBody = () => {
   const {
     activeConversationId,
@@ -49,7 +49,8 @@ const ChatWindowBody = () => {
   return (
     <div className="p-4 bg-primary-foreground h-full flex flex-col overflow-hidden">
       <div className="flex flex-col overflow-y-auto overflow-x-hidden beautiful-scrollbar">
-        {messages.map((message, index) => (
+        <InfiniteScroll>
+          {messages.map((message, index) => (
           <MessageItem
             key={message._id ?? index}
             message={message}
@@ -59,6 +60,8 @@ const ChatWindowBody = () => {
             lastMessageStatus={lastMessageStatus}
           />
         ))}
+        </InfiniteScroll>
+        
 
         <div ref={messagesEndRef}></div>
       </div>
