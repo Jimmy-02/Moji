@@ -60,7 +60,7 @@ export interface ChatState {
   ) => Promise<void>;
 
   addMessage: (message: Message) => Promise<void>
-  updateConversation: (conversation: Conversation) => void
+  updateConversation: (conversation: unknown) => void
   markAsSeen: () => Promise<void>
 }
 
