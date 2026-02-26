@@ -80,7 +80,7 @@ export function SignupForm({className,...props}: React.ComponentProps<"div">) {
                   <Label htmlFor="password" className="block text-sm">Mật khẩu</Label>
                   <Input type="password" id="password" {...register("password")}/>
                   {errors.password && (
-                    <p className="text-destructive text-sm"> {errors.password.message} </p>
+                    <p className="error-message"> {errors.password.message} </p>
                   )}
                 </div>
                 <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>Tạo tài khoản</Button>
