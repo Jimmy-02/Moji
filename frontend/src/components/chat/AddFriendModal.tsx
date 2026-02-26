@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { UserPlus } from "lucide-react";
 import type { User } from "@/types/user";
 import { useFriendStore } from "@/stores/useFriendStore";
+import { useForm } from "react-hook-form";
 
 export interface IFormValues{
   username: string;
@@ -14,6 +15,16 @@ const AddFriendModal = () => {
   const [searchUser, setSearchUser] = useState<User>();
   const [searchedUsername, setSearchedUsername] = useState("");
   const { loading, searchByUsername, addFriend } = useFriendStore();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<IFormValues>({
+    defaultValues: { username: "", message: "" },
+  });
 
   return (
     <Dialog>
