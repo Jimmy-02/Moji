@@ -26,6 +26,29 @@ const AddFriendModal = () => {
     defaultValues: { username: "", message: "" },
   });
 
+  const usernameValue = watch("username");
+  
+  const handleSearch = handleSubmit(async (data) => {
+    const username = data.username.trim();
+    if (!username) return;
+
+    setIsFound(null);
+    setSearchedUsername(username);
+
+    try {
+      const foundUser = await searchByUsername(username);
+      if (foundUser) {
+        setIsFound(true);
+        setSearchUser(foundUser);
+      } else {
+        setIsFound(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsFound(false);
+    }
+  });
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
