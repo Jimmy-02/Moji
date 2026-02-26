@@ -47,7 +47,7 @@ const SendFriendRequestForm = ({
           <Button
             type="button"
             variant="outline"
-            className="flex-1 glass hover:text-destructive"
+            className="flex-1 glass hover:text-destructive cursor-pointer"
             onClick={onBack}
           >
             Quay lại
@@ -56,7 +56,7 @@ const SendFriendRequestForm = ({
           <Button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-gradient-chat text-white hover:opactity-90 transition-smooth"
+            className="flex-1 bg-gradient-chat text-white hover:opactity-90 transition-smooth cursor-pointer"
           >
             {loading ? (
               <span>Đang gửi...</span>
