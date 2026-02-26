@@ -4,6 +4,7 @@ import { UserPlus } from "lucide-react";
 import type { User } from "@/types/user";
 import { useFriendStore } from "@/stores/useFriendStore";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export interface IFormValues{
   username: string;
@@ -48,7 +49,26 @@ const AddFriendModal = () => {
       setIsFound(false);
     }
   });
-  
+
+  const handleSend = handleSubmit(async (data) => {
+    if (!searchUser) return;
+
+    try {
+      const message = await addFriend(searchUser._id, data.message.trim());
+      toast.success(message);
+
+      handleCancel();
+    } catch (error) {
+      console.error("Lỗi xảy ra khi gửi request từ form", error);
+    }
+  });
+
+  const handleCancel = () => {
+    reset();
+    setSearchedUsername("");
+    setIsFound(null);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
