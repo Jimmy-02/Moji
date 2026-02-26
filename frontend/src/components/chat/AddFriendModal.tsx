@@ -5,6 +5,8 @@ import type { User } from "@/types/user";
 import { useFriendStore } from "@/stores/useFriendStore";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import SearchForm from "../AddFriendModal/SearchForm";
+import SendFriendRequestForm from "../AddFriendModal/SendFriendRequestForm";
 
 export interface IFormValues{
   username: string;
@@ -81,7 +83,32 @@ const AddFriendModal = () => {
         <DialogHeader>
           <DialogTitle>Kết Bạn</DialogTitle>
         </DialogHeader>
+        {!isFound && (
+          <>
+            <SearchForm
+              register={register}
+              errors={errors}
+              usernameValue={usernameValue}
+              loading={loading}
+              isFound={isFound}
+              searchedUsername={searchedUsername}
+              onSubmit={handleSearch}
+              onCancel={handleCancel}
+            />
+          </>
+        )}
 
+        {isFound && (
+          <>
+            <SendFriendRequestForm
+              register={register}
+              loading={loading}
+              searchedUsername={searchedUsername}
+              onSubmit={handleSend}
+              onBack={() => setIsFound(null)}
+            />
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );
