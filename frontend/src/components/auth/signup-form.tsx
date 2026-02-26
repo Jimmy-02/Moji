@@ -53,14 +53,14 @@ export function SignupForm({className,...props}: React.ComponentProps<"div">) {
                   <Label htmlFor="lastname" className="block text-sm">Họ</Label>
                   <Input type="text" id="lastname" {...register("lastname")}/>
                   {errors.lastname && (
-                    <p className="text-destructive text-sm"> {errors.lastname.message} </p>
+                    <p className="error-message"> {errors.lastname.message} </p>
                   )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="firstname" className="block text-sm">Tên</Label>
                   <Input type="text" id="firstname" {...register("firstname")}/>
                   {errors.firstname && (
-                    <p className="text-destructive text-sm"> {errors.firstname.message} </p>
+                    <p className="error-message"> {errors.firstname.message} </p>
                   )}
                 </div>
               </div>
@@ -68,13 +68,13 @@ export function SignupForm({className,...props}: React.ComponentProps<"div">) {
                   <Label htmlFor="username" className="block text-sm">Tên đăng nhập</Label>
                   <Input type="text" id="username" placeholder="moji" {...register("username")}/>
                   {errors.username && (
-                    <p className="text-destructive text-sm"> {errors.username.message} </p>
+                    <p className="error-message"> {errors.username.message} </p>
                   )}
 
                   <Label htmlFor="email" className="block text-sm">Email</Label>
                   <Input type="email" id="email" placeholder="lama@gmail.com" {...register("email")}/>
                   {errors.email && (
-                    <p className="text-destructive text-sm"> {errors.email.message} </p>
+                    <p className="error-message"> {errors.email.message} </p>
                   )}
 
                   <Label htmlFor="password" className="block text-sm">Mật khẩu</Label>
