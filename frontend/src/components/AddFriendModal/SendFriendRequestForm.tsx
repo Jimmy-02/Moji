@@ -37,7 +37,7 @@ const SendFriendRequestForm = ({
           <Textarea
             id="message"
             rows={3}
-            placeholder="A Vũ à Vũ"
+            placeholder="Rat xinh dep tuyet voi chuc vui ve hanh phuc binh an"
             className="glass border-border/50 focus:border-primary/50 transition-smooth resize-none"
             {...register("message")}
           />
