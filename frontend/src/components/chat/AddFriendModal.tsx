@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { UserPlus } from "lucide-react";
 
-export interface IFromValues{
+export interface IFormValues{
   username: string;
   message: string;
 }
@@ -22,7 +22,7 @@ const AddFriendModal = () => {
         <DialogHeader>
           <DialogTitle>Kết Bạn</DialogTitle>
         </DialogHeader>
-        
+
       </DialogContent>
     </Dialog>
   );
