@@ -8,7 +8,7 @@ interface SearchFormProps {
   usernameValue: string;
   isFound: boolean | null;
   searchedUsername: string;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit?: (e: React.FormHTMLAttributes<HTMLFormElement>) => void;
   onCancel: () => void;
 }
 
