@@ -10,4 +10,13 @@ export const friendService = {
     const res = await api.post("/friends/requests", { to, message });
     return res.data.message;
   },
+
+  async acceptRequest(requestId: string) {
+    try {
+      const res = await api.post(`/friends/requests/${requestId}/accept`);
+      return res.data.requestAcceptedBy;
+    } catch (error) {
+      console.error("Error when accept friend request", error);
+    }
+  },
 };
