@@ -62,6 +62,17 @@ export const useFriendStore = create<FriendState>((set, get) => ({
     }
   },
   declineRequest: async (requestId) => {
+    try {
+      set({ loading: true });
+      await friendService.declineRequest(requestId);
 
+      set((state) => ({
+        receivedList: state.receivedList.filter((r) => r._id !== requestId),
+      }));
+    } catch (error) {
+        console.error("Error when declining friend request", error);
+      } finally {
+      set({ loading: false });
+    }
   }
 }));
