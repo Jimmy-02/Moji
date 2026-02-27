@@ -27,4 +27,9 @@ export const friendService = {
       console.error("Error when declining friend request", error);
     }
   },
+
+  async getFriendList() {
+    const res = await api.get("/friends");
+    return res.data.friends;
+  },
 };
