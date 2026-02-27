@@ -107,13 +107,13 @@ export const declineFriendRequest = async(req, res)=>{
             return res.status(404).json({ message: "Friend request not found!" });
         }
 
-    if (request.to.toString() !== userId.toString()) {
-      return res.status(403).json({ message: "You cannot decline this friend request!" });
-    }
+        if (request.to.toString() !== userId.toString()) {
+        return res.status(403).json({ message: "You cannot decline this friend request!" });
+        }
 
-    await FriendRequest.findByIdAndDelete(requestId);
+        await FriendRequest.findByIdAndDelete(requestId);
 
-    return res.sendStatus(204);
+        return res.sendStatus(204);
 
     } catch (error) {
         console.error("Error when declining friend request", error);

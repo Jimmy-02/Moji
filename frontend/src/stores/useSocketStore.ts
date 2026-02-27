@@ -3,6 +3,7 @@ import { io, type Socket } from "socket.io-client";
 import { useAuthStore } from "./useAuthStore";
 import type { SocketState } from "@/types/store";
 import { useChatStore } from "./useChatStore";
+import { useFriendStore } from "./useFriendStore";
 
 const baseURL = import.meta.env.VITE_SOCKET_URL;
 
