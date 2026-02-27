@@ -11,6 +11,16 @@ export const friendService = {
     return res.data.message;
   },
 
+  async getAllFriendRequest() {
+    try {
+      const res = await api.get("/friends/requests");
+      const { sent, received } = res.data;
+      return { sent, received };
+    } catch (error) {
+      console.error("Error when getting all friend requests", error);
+    }
+  },
+
   async acceptRequest(requestId: string) {
     try {
       const res = await api.post(`/friends/requests/${requestId}/accept`);
