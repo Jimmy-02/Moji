@@ -24,6 +24,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
     try {
       set({ loading: true });
       const resultMessage = await friendService.sendFriendRequest(to, message);
+      await get().getAllFriendRequests();
       return resultMessage;
     } catch (error) {
       console.error("Error adding friend:", error);
@@ -59,6 +60,8 @@ export const useFriendStore = create<FriendState>((set, get) => ({
       }));
     } catch (error) {
       console.error("Error when accepting friend request", error);
+    } finally {
+      set({ loading: false });
     }
   },
   declineRequest: async (requestId) => {
