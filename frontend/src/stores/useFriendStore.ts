@@ -3,31 +3,42 @@ import type { FriendState } from "@/types/store";
 import { create } from "zustand";
 
 export const useFriendStore = create<FriendState>((set, get) => ({
-    loading: false,
-    searchByUsername: async (username) => {
-        try {
-          set({ loading: true });
+  loading: false,
+  receivedList: [],
+  sentList: [],
+  searchByUsername: async (username) => {
+    try {
+      set({ loading: true });
 
-          const user = await friendService.searchByUsername(username);
+      const user = await friendService.searchByUsername(username);
 
-          return user;
-        } catch (error) {
-          console.error("Error searching user by username:", error);
-          return null;
-        } finally {
-          set({ loading: false });
-        }
-    },
-    addFriend: async (to, message?) => {
-        try {
-          set({ loading: true });
-          const resultMessage = await friendService.sendFriendRequest(to, message);
-          return resultMessage;
-        } catch (error) {
-          console.error("Error adding friend:", error);
-          return "Lỗi xảy ra khi gửi kết bạn. Hãy thử lại";
-        } finally {
-          set({ loading: false });
-        }
+      return user;
+    } catch (error) {
+      console.error("Error searching user by username:", error);
+      return null;
+    } finally {
+      set({ loading: false });
     }
-}))
+  },
+  addFriend: async (to, message?) => {
+    try {
+      set({ loading: true });
+      const resultMessage = await friendService.sendFriendRequest(to, message);
+      return resultMessage;
+    } catch (error) {
+      console.error("Error adding friend:", error);
+      return "Lỗi xảy ra khi gửi kết bạn. Hãy thử lại";
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAllFriendRequests: async () => {
+
+  },
+  acceptRequest: async (requestId) => {
+
+  },
+  declineRequest: async (requestId) => {
+    
+  }
+}));
