@@ -1,9 +1,13 @@
-import React from 'react'
+import { useFriendStore } from "@/stores/useFriendStore";
 
 const CreateNewChat = () => {
-  return (
-    <div>CreateNewChat</div>
-  )
-}
+  const { getFriends } = useFriendStore();
 
-export default CreateNewChat
+  const handleGetFriends = async () => {
+    await getFriends();
+  };
+  
+  return <div>CreateNewChat</div>;
+};
+
+export default CreateNewChat;
