@@ -152,7 +152,7 @@ export const useChatStore = create<ChatState>()(
           ),
         }));
       },
-      markAsSeen: async () =>{
+      markAsSeen: async () => {
         try {
           const { user } = useAuthStore.getState();
           const { activeConversationId, conversations } = get();
@@ -191,7 +191,21 @@ export const useChatStore = create<ChatState>()(
         } catch (error) {
           console.error("Error when calling markAsSeen in store", error);
         }
-      }
+      },
+      addConvo: (convo) => {
+        set((state) => {
+          const exists = state.conversations.some(
+            (c) => c._id.toString() === convo._id.toString(),
+          );
+
+          return {
+            conversations: exists
+              ? state.conversations
+              : [convo, ...state.conversations],
+            activeConversationId: convo._id,
+          };
+        });
+      },
     }),
     {
       name: "chat-storage",
