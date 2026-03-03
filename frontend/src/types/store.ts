@@ -63,7 +63,7 @@ export interface ChatState {
   updateConversation: (conversation: unknown) => void
   markAsSeen: () => Promise<void>
   addConvo: (convo: Conversation) => void
-  createConversation: (type: "group" | "direct", name: string, memberIds: string[]) => Promise<Conversation>
+  createConversation: (type: "group" | "direct", name: string, memberIds: string[]) => Promise<void>
 }
 
 export interface SocketState {

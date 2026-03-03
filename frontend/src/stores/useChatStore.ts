@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import type { ChatState } from "@/types/store";
 import { chatService } from "@/services/chatService";
 import { useAuthStore } from "./useAuthStore";
+import { useSocketStore } from "./useSocketStore";
 
 export const useChatStore = create<ChatState>()(
   persist(
@@ -205,6 +206,26 @@ export const useChatStore = create<ChatState>()(
             activeConversationId: convo._id,
           };
         });
+      },
+      createConversation: async (type, name, memberIds) => {
+        try {
+          const conversation = await chatService.createConversation(
+            type,
+            name,
+            memberIds,
+          );
+
+          get().addConvo(conversation);
+
+          useSocketStore
+            .getState()
+            .socket?.emit("join-conversation", conversation._id);
+        } catch (error) {
+          console.error(
+            "Error when creating conversation in store:",
+            error,
+          );
+        }
       },
     }),
     {
