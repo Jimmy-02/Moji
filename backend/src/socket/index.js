@@ -31,7 +31,13 @@ io.on("connection", async(socket) =>{
     const conversationIds = await getUserConversationsForSocketIO(user._id);
     conversationIds.forEach((id)=>{
         socket.join(id);
-    })
+    });
+
+    socket.on("join-conversation", (conversationId) =>{
+        socket.join(conversationId);
+        console.log(`User ${user.displayName} joined conversation ${conversationId}`);
+    });
+
     socket.on("disconnect", () =>{
         onlineUsers.delete(user._id);
         io.emit("online-users", Array.from(onlineUsers.keys()));
