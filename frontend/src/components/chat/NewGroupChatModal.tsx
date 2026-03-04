@@ -68,6 +68,9 @@ const NewGroupChatModal = () => {
               className="flex-1"
             />
           </div>
+
+          <InviteSuggestionList/>
+
         </form>
       </DialogContent>
     </Dialog>
