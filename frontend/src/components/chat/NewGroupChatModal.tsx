@@ -1,5 +1,8 @@
 import { useFriendStore } from '@/stores/useFriendStore';
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { Dialog, DialogTrigger } from '../ui/dialog';
+import { Button } from '../ui/button';
+import { Users } from 'lucide-react';
 
 const NewGroupChatModal = () => {
   const [groupName, setGroupName] = useState("");
@@ -12,8 +15,19 @@ const NewGroupChatModal = () => {
 
 
   return (
-    <div>NewGroupChatModal</div>
-  )
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          onClick={handleGetFriends}
+          className="flex z-10 justify-center items-center size-5 rounded-full hover:bg-sidebar-accent transition cursor-pointer"
+        >
+          <Users className="size-4" />
+          <span className="sr-only">Tạo nhóm</span>
+        </Button>
+      </DialogTrigger>
+    </Dialog>
+  );
 }
 
 export default NewGroupChatModal
