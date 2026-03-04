@@ -6,6 +6,7 @@ import { Users } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import type { Friend } from '@/types/user';
+import InviteSuggestionList from '../newGroupChat/InviteSuggestionList';
 
 const NewGroupChatModal = () => {
   const [groupName, setGroupName] = useState("");
