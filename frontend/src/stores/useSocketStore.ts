@@ -29,7 +29,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
 
         socket.on("online-users", (userIds) =>{
             set({onlineUsers: userIds});
-        })
+        });
 
         socket.on("new-message", ({message, conversation, unreadCounts})=>{
             useChatStore.getState().addMessage(message);
@@ -54,7 +54,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
                 useChatStore.getState().markAsSeen();
             }
             useChatStore.getState().updateConversation(updatedConversation);
-        })
+        });
 
         socket.on("read-message", ({ conversation, lastMessage }) => {
             const updated = {
@@ -65,7 +65,13 @@ export const useSocketStore = create<SocketState>((set, get) => ({
                 seenBy: conversation.seenBy
             };
             useChatStore.getState().updateConversation(updated);
-        })
+        });
+
+        socket.on("new-group", (conversation) => {
+            useChatStore.getState().addConvo(conversation);
+            socket.emit("join-conversation", conversation._id);
+        });
+
     },
     disconnectSocket: () => {
         const socket = get().socket;
