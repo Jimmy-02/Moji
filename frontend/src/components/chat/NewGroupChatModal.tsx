@@ -18,6 +18,11 @@ const NewGroupChatModal = () => {
     await getFriends();
   };
 
+  const handleSelectFriend = (friend: Friend) => {
+    setInvitedUsers([...invitedUsers, friend]);
+    setSearch("");
+  };
+  
   const filteredFriends = friends.filter(
     (friend) =>
       friend.displayName.toLowerCase().includes(search.toLowerCase()) &&
@@ -70,7 +75,7 @@ const NewGroupChatModal = () => {
             />
           </div>
 
-          <InviteSuggestionList/>
+          <InviteSuggestionList filteredFriends={filteredFriends} onSelect={}/>
 
         </form>
       </DialogContent>
