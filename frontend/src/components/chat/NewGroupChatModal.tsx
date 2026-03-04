@@ -1,6 +1,6 @@
 import { useFriendStore } from '@/stores/useFriendStore';
 import { useState } from 'react'
-import { Dialog, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Users } from 'lucide-react';
 
@@ -26,6 +26,11 @@ const NewGroupChatModal = () => {
           <span className="sr-only">Tạo nhóm</span>
         </Button>
       </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] border-none">
+        <DialogHeader>
+          <DialogTitle className="capitalize">tạo nhóm chat mới</DialogTitle>
+        </DialogHeader>
+      </DialogContent>
     </Dialog>
   );
 }
