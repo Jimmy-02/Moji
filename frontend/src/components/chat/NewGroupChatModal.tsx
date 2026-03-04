@@ -46,6 +46,22 @@ const NewGroupChatModal = () => {
               required
             />
           </div>
+
+          <div className="space-y-2">
+            <Label
+              htmlFor="invite"
+              className="text-sm font-semibold"
+            >
+              Mời thành viên
+            </Label>
+            <Input
+              id="invite"
+              placeholder="Tìm theo tên hiển thị..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="flex-1"
+            />
+          </div>
         </form>
       </DialogContent>
     </Dialog>
