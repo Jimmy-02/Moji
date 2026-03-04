@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Users } from 'lucide-react';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
 
 const NewGroupChatModal = () => {
   const [groupName, setGroupName] = useState("");
@@ -30,6 +32,21 @@ const NewGroupChatModal = () => {
         <DialogHeader>
           <DialogTitle className="capitalize">tạo nhóm chat mới</DialogTitle>
         </DialogHeader>
+        <form className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="groupName" className="text-sm font-semibold">
+              Tên nhóm
+            </Label>
+            <Input
+              id="groupName"
+              placeholder="Gõ tên nhóm vào đây..."
+              className="glass border-border/50 focus:border-primary/50 transition-smooth"
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+              required
+            />
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
