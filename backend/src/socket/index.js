@@ -38,6 +38,8 @@ io.on("connection", async(socket) =>{
         console.log(`User ${user.displayName} joined conversation ${conversationId}`);
     });
 
+    socket.join(user._id.toString());
+
     socket.on("disconnect", () =>{
         onlineUsers.delete(user._id);
         io.emit("online-users", Array.from(onlineUsers.keys()));
