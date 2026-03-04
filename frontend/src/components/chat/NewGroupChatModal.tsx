@@ -22,7 +22,7 @@ const NewGroupChatModal = () => {
     setInvitedUsers([...invitedUsers, friend]);
     setSearch("");
   };
-  
+
   const filteredFriends = friends.filter(
     (friend) =>
       friend.displayName.toLowerCase().includes(search.toLowerCase()) &&
@@ -60,10 +60,7 @@ const NewGroupChatModal = () => {
           </div>
 
           <div className="space-y-2">
-            <Label
-              htmlFor="invite"
-              className="text-sm font-semibold"
-            >
+            <Label htmlFor="invite" className="text-sm font-semibold">
               Mời thành viên
             </Label>
             <Input
@@ -74,9 +71,12 @@ const NewGroupChatModal = () => {
               className="flex-1"
             />
           </div>
-
-          <InviteSuggestionList filteredFriends={filteredFriends} onSelect={}/>
-
+          {search && filteredFriends.length > 0 && (
+            <InviteSuggestionList
+              filteredFriends={filteredFriends}
+              onSelect={handleSelectFriend}
+            />
+          )}
         </form>
       </DialogContent>
     </Dialog>
