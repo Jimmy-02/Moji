@@ -5,17 +5,23 @@ import { Button } from '../ui/button';
 import { Users } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import type { Friend } from '@/types/user';
 
 const NewGroupChatModal = () => {
   const [groupName, setGroupName] = useState("");
   const [search, setSearch] = useState("");
   const { friends, getFriends } = useFriendStore();
+  const [invitedUsers, setInvitedUsers] = useState<Friend[]>([]);
 
   const handleGetFriends = async () => {
     await getFriends();
   };
 
-
+  const filteredFriends = friends.filter(
+    (friend) =>
+      friend.displayName.toLowerCase().includes(search.toLowerCase()) &&
+      !invitedUsers.some((u) => u._id === friend._id),
+  );
   return (
     <Dialog>
       <DialogTrigger asChild>
