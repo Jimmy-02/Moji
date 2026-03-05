@@ -24,6 +24,10 @@ const NewGroupChatModal = () => {
     setSearch("");
   };
 
+  const handleRemoveFriend = (friend: Friend) => {
+    setInvitedUsers(invitedUsers.filter((u) => u._id !== friend._id));
+  };
+
   const filteredFriends = friends.filter(
     (friend) =>
       friend.displayName.toLowerCase().includes(search.toLowerCase()) &&
