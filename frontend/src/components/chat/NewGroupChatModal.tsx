@@ -1,8 +1,8 @@
 import { useFriendStore } from '@/stores/useFriendStore';
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Button } from '../ui/button';
-import { Users } from 'lucide-react';
+import { UserPlus, Users } from 'lucide-react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import type { Friend } from '@/types/user';
@@ -107,7 +107,27 @@ const NewGroupChatModal = () => {
             />
           )}
 
-          <SelectedUsersList invitedUsers={invitedUsers} onRemove={handleRemoveFriend}/>
+          <SelectedUsersList
+            invitedUsers={invitedUsers}
+            onRemove={handleRemoveFriend}
+          />
+
+          <DialogFooter>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-gradient-chat text-white hover:opacity-90 transition-smooth"
+            >
+              {loading ? (
+                <span>Đang tạo...</span>
+              ) : (
+                <>
+                  <UserPlus className="size-4 mr-2" />
+                  Tạo nhóm
+                </>
+              )}
+            </Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
