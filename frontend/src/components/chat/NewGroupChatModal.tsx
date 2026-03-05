@@ -83,7 +83,7 @@ const NewGroupChatModal = () => {
             />
           )}
 
-          <SelectedUsersList/>
+          <SelectedUsersList invitedUsers={invitedUsers} onRemove={handleRemoveFriend}/>
         </form>
       </DialogContent>
     </Dialog>
