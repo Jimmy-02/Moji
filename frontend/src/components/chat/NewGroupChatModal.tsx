@@ -8,12 +8,15 @@ import { Input } from '../ui/input';
 import type { Friend } from '@/types/user';
 import InviteSuggestionList from '../newGroupChat/InviteSuggestionList';
 import SelectedUsersList from '../createNewChat/SelectedUsersList';
+import { toast } from 'sonner';
+import { useChatStore } from '@/stores/useChatStore';
 
 const NewGroupChatModal = () => {
   const [groupName, setGroupName] = useState("");
   const [search, setSearch] = useState("");
   const { friends, getFriends } = useFriendStore();
   const [invitedUsers, setInvitedUsers] = useState<Friend[]>([]);
+  const { loading, createConversation } = useChatStore();
 
   const handleGetFriends = async () => {
     await getFriends();
@@ -33,6 +36,27 @@ const NewGroupChatModal = () => {
       friend.displayName.toLowerCase().includes(search.toLowerCase()) &&
       !invitedUsers.some((u) => u._id === friend._id),
   );
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault(); // Prevent reloading the page
+      if(invitedUsers.length === 0){
+        toast.warning("Hãy mời ít nhất một thành viên vào nhóm");
+        return;
+      }
+      await createConversation(
+        "group",
+        groupName,
+        invitedUsers.map((u) => u._id)
+      );
+
+      setSearch("");
+      setGroupName("");
+      setInvitedUsers([]);
+    } catch (error) {
+      console.error("Error when handle submit in NewGroupChatModal:", error);
+    }
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
