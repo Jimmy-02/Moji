@@ -210,6 +210,7 @@ export const useChatStore = create<ChatState>()(
       },
       createConversation: async (type, name, memberIds) => {
         try {
+          set({ loading: true });
           const conversation = await chatService.createConversation(
             type,
             name,
@@ -226,6 +227,8 @@ export const useChatStore = create<ChatState>()(
             "Error when creating conversation in store:",
             error,
           );
+        } finally {
+          set({ loading: false });
         }
       },
     }),
