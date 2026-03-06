@@ -32,6 +32,7 @@ import type { User } from "@/types/user"
 import Logout from "../auth/Logout"
 import { useState } from "react"
 import FriendRequestDialog from "../friendRequest/FriendRequestDialog"
+import ProfileDialog from "../profile/ProfileDialog"
 
 export function NavUser({
   user,
@@ -111,7 +112,10 @@ export function NavUser({
       <FriendRequestDialog 
       open={friendRequestOpen} 
       setOpen={setFriendRequestOpen} />
-      
+
+      <ProfileDialog 
+      open={profileOpen} 
+      setOpen={setProfileOpen} />
     </>
   );
 }
