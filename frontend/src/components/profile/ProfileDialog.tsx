@@ -13,15 +13,17 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-xl p-0 overflow-hidden rounded-xl">
-        <div className="p-6">
-          <DialogHeader className="mb-6">
-            <DialogTitle className="text-2xl font-bold">
-              Profile & Settings
-            </DialogTitle>
-          </DialogHeader>
+      <DialogContent className="overflow-y-auto max-h-[95vh] p-0 bg-transparent border-0 shadow-2xl">
+        <div className="bg-gradient-glass">
+          <div className="max-w-4xl mx-auto p-6">
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-2xl font-bold text-foreground">
+                Profile & Settings
+              </DialogTitle>
+            </DialogHeader>
 
-          <ProfileCard user={user} />
+            <ProfileCard user={user} />
+            </div>
         </div>
       </DialogContent>
     </Dialog>
