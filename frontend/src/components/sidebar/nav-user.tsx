@@ -40,6 +40,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const [friendRequestOpen, setFriendRequestOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false);
   return (
     <>
       <SidebarMenu>
@@ -86,7 +87,7 @@ export function NavUser({
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuGroup>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setProfileOpen(true)}>
                   <UserIcon className="text-muted-foreground dark:group-focus:!text-accent-foreground" />
                   Tài Khoản
                 </DropdownMenuItem>
@@ -110,6 +111,7 @@ export function NavUser({
       <FriendRequestDialog 
       open={friendRequestOpen} 
       setOpen={setFriendRequestOpen} />
+      
     </>
   );
 }
