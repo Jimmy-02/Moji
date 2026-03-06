@@ -8,14 +8,15 @@ import { useSocketStore } from "@/stores/useSocketStore";
 interface ProfileCardProps {
   user: User | null;
 }
+
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const { onlineUsers } = useSocketStore();
-
   if (!user) return;
 
   if (!user.bio) {
-    user.bio = "Will code for eggs";
+    user.bio = "Will code for food 💻";
   }
+
   const isOnline = onlineUsers.includes(user._id) ? true : false;
 
   return (
@@ -29,6 +30,8 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             className="ring-4 ring-white shadow-lg"
           />
         </div>
+
+        {/* user info */}
         <div className="text-center sm:text-left flex-1">
           <h1 className="text-2xl font-semibold tracking-tight text-white">
             {user.displayName}
@@ -40,6 +43,8 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             </p>
           )}
         </div>
+
+        {/* status */}
         <Badge
           className={cn(
             "flex items-center gap-1 capitalize",
@@ -62,4 +67,4 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
   );
 };
 
-export default ProfileCard
+export default ProfileCard;
