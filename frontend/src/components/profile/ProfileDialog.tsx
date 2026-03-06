@@ -1,12 +1,14 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProfileCard from "./ProfileCard";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface ProfileDialogProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
+    const { user } = useAuthStore();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="overflow-y-auto max-h-[95vh] p-0 bg-transparent border-0 shadow-2xl">
