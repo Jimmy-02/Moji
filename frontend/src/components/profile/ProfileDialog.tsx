@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import ProfileCard from "./ProfileCard";
 
 interface ProfileDialogProps {
   open: boolean;
@@ -17,6 +18,7 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
               </DialogTitle>
             </DialogHeader>
           </div>
+          <ProfileCard user={user} />
         </div>
       </DialogContent>
     </Dialog>
