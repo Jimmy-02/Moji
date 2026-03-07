@@ -9,6 +9,8 @@ export interface AuthState {
 
   setAccessToken: (accessToken: string) => void;
 
+  setUser: (user: User) => void;
+
   clearState: () => void;
 
   signUp: (
