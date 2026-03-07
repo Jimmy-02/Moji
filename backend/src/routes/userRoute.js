@@ -1,5 +1,5 @@
 import express from 'express'
-import { authMe, searchUserByUsername} from '../controllers/userController.js';
+import { authMe, searchUserByUsername, uploadAvatar} from '../controllers/userController.js';
 import { upload } from "../middlewares/uploadMiddleware.js";
 
 const router = express.Router();
