@@ -86,3 +86,7 @@ export interface FriendState {
   addFriend: (to: string, message?: string) => Promise<string>;
   getFriends: () => Promise<void>;
 }
+
+export interface UserState{
+  updateAvatarUrl: (formData: FormData) => Promise<void>;
+}
