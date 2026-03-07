@@ -1,29 +1,64 @@
 import User from "../models/User.js";
 
 export const authMe = async (req, res) => {
-    try {
-        const user = req.user;
+  try {
+    const user = req.user;
 
-        return res.status(200).json({user});
-    } catch (error) {
-        console.log("error when call authMe", error);
-        return res.status(500).json({ message: "System error" });
-    }
-}
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log("error when call authMe", error);
+    return res.status(500).json({ message: "System error" });
+  }
+};
 
 export const searchUserByUsername = async (req, res) => {
-    try {
-        const {username} = req.query;
+  try {
+    const { username } = req.query;
 
-        if (!username || username.trim() === "") {
-            return res.status(400).json({ message: "Username is required" });
-        }
-
-        const user = await User.findOne({ username}).select("_id displayName username avatarUrl");
-        
-        return res.status(200).json({user});
-    } catch (error) {
-        console.log("Error searching user by username:", error);
-        return res.status(500).json({ message: "System error" });
+    if (!username || username.trim() === "") {
+      return res.status(400).json({ message: "Username is required" });
     }
-}
+
+    const user = await User.findOne({ username }).select(
+      "_id displayName username avatarUrl",
+    );
+
+    return res.status(200).json({ user });
+  } catch (error) {
+    console.log("Error searching user by username:", error);
+    return res.status(500).json({ message: "System error" });
+  }
+};
+
+export const uploadAvatar = async (req, res) => {
+  try {
+    const file = req.file;
+    const userId = req.user._id;
+
+    if (!file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const result = await uploadImageFromBuffer(file.buffer);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        avatarUrl: result.secure_url,
+        avatarId: result.public_id,
+      },
+      {
+        new: true,
+      },
+    ).select("avatarUrl");
+
+    if (!updatedUser.avatarUrl) {
+      return res.status(400).json({ message: "Avatar returned null" });
+    }
+
+    return res.status(200).json({ avatarUrl: updatedUser.avatarUrl });
+  } catch (error) {
+    console.error("Error occurred while uploading avatar", error);
+    return res.status(500).json({ message: "Upload failed" });
+  }
+};
