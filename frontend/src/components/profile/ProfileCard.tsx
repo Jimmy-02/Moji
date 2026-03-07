@@ -4,6 +4,8 @@ import UserAvatar from "../chat/UserAvatar";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import { useSocketStore } from "@/stores/useSocketStore";
+import { Avatar } from "radix-ui";
+import AvatarUploader from "./AvatarUploader";
 
 interface ProfileCardProps {
   user: User | null;
@@ -29,6 +31,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             avatarUrl={user.avatarUrl ?? undefined}
             className="ring-4 ring-white shadow-lg"
           />
+          <AvatarUploader/>
         </div>
 
         {/* user info */}
