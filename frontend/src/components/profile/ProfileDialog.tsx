@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProfileCard from "./ProfileCard";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface ProfileDialogProps {
   open: boolean;
@@ -23,7 +24,31 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
             </DialogHeader>
 
             <ProfileCard user={user} />
-            </div>
+            <Tabs defaultValue="personal" className="my-4">
+              <TabsList className="grid w-full grid-cols-3 glass-light">
+                <TabsTrigger
+                  value="personal"
+                  className="data-[state=active]:glass-strong"
+                >
+                  Tài Khoản
+                </TabsTrigger>
+                <TabsTrigger
+                  value="preferences"
+                  className="data-[state=active]:glass-strong"
+                >
+                  Cấu Hình
+                </TabsTrigger>
+                <TabsTrigger
+                  value="privacy"
+                  className="data-[state=active]:glass-strong"
+                >
+                  Bảo Mật
+                </TabsTrigger>
+              </TabsList>
+
+              
+            </Tabs>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
