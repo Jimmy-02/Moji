@@ -71,7 +71,7 @@ const SearchForm = ({
           className="flex-1 bg-gradient-chat text-white hover:opacity-90 transition-smooth cursor-pointer"
         >
           {loading ? (
-            <span>Đang tìm ...</span>
+            <span>Đang tìm ....</span>
           ) : (
             <>
               <Search className="size-4 mr-2" /> Tìm

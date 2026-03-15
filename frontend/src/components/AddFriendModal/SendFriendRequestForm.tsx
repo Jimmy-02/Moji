@@ -59,7 +59,7 @@ const SendFriendRequestForm = ({
             className="flex-1 bg-gradient-chat text-white hover:opactity-90 transition-smooth cursor-pointer"
           >
             {loading ? (
-              <span>Đang gửi...</span>
+              <span>Đang gửi....</span>
             ) : (
               <>
                 <UserPlus className="size-4 mr-2" /> Kết Bạn
