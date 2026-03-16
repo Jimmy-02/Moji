@@ -38,21 +38,28 @@ The project is separated into a frontend client and a backend server.
 ## Project Structure
 
 ```
-Moji_RealtimeChatApp
+Moji
+├── backend/
+│   └── src/
+│       ├── controllers/
+│       ├── libs/
+│       ├── middlewares/
+│       ├── models/
+│       ├── routes/
+│       ├── socket/
+│       └── utils/
 │
-├── frontend
-│   ├── src
-│   ├── components
-│   ├── pages
-│   └── services
-│
-├── backend
-│   ├── controllers
-│   ├── models
-│   ├── routes
-│   └── socket
-│
-└── README.md
+└── frontend/
+    ├── public/
+    └── src/
+        ├── assets/
+        ├── components/
+        ├── hooks/
+        ├── lib/
+        ├── pages/
+        ├── services/
+        ├── stores/
+        └── types/
 ```
 
 ## Installation
