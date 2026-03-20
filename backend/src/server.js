@@ -11,6 +11,8 @@ import { protectedRoute } from './middlewares/authMiddleware.js';
 import cors from "cors"
 import { app, server } from "./socket/index.js";
 import { v2 as cloudinary } from "cloudinary";
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
 
 dotenv.config();
 
@@ -19,6 +21,10 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({origin: process.env.CLIENT_URL, credentials: true}))
+
+const swaggerDocument = JSON.parse(fs.readFileSync("./src/swagger.json", "utf8"),);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
